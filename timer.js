@@ -24,16 +24,37 @@ let timeInputHr = document.querySelector('.js-hr')
 let timeInputMin = document.querySelector('.js-min')
 let timeInputSec = document.querySelector('.js-sec')
 let startButton = document.querySelector('.start')
+let pauseButton = document.querySelector('.pause')
 let h1 = document.createElement("h1")
 document.body.append(h1) 
+let intervalId;
+let isRunning = false
+let timeLeft;
 
 startButton.addEventListener('click',()=>{
-let hours = Number(timeInputHr.value)
+  let hours = Number(timeInputHr.value)
 let minutes = Number(timeInputMin.value)
 let seconds = Number(timeInputSec.value) 
 
-  let timeLeft = (hours*3600) + (minutes*60) + seconds;
-  let intervalId = setInterval(()=>{
+  timeLeft = (hours*3600) + (minutes*60) + seconds;
+runningTimer()
+  
+}) 
+pauseButton.addEventListener('click',()=>{
+  if(isRunning === true ){
+    pauseButton.textContent = "Resume"
+    clearInterval(intervalId)
+    isRunning = false;
+  }else{
+    pauseButton.textContent = "Pause"
+    runningTimer()
+  }
+}) 
+
+function runningTimer(){  
+isRunning = true;
+
+  intervalId = setInterval(()=>{
   timeLeft--;
   let hrs = Math.floor(timeLeft/3600)
   let mins = Math.floor((timeLeft % 3600) / 60)
@@ -49,6 +70,4 @@ let seconds = Number(timeInputSec.value)
     clearInterval(intervalId)
     h1.textContent = `the countdown is over`
   }
-  },1000)
-  
-})
+  },1000)}
