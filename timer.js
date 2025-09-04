@@ -20,6 +20,7 @@
 // timeInput.value = ""
 // }
 // )
+let mainDiv = document.querySelector('.js-mode')
 let timeInputHr = document.querySelector('.js-hr')
 let timeInputMin = document.querySelector('.js-min')
 let timeInputSec = document.querySelector('.js-sec')
@@ -70,4 +71,38 @@ isRunning = true;
     clearInterval(intervalId)
     h1.textContent = `the countdown is over`
   }
-  },1000)}
+  },1000)} 
+
+  /////stopwatch///// 
+// let h1Again = createElement('h1')
+// document.body.append(h1Again)
+let modeBtton = document.createElement('button')
+modeBtton.textContent = `Mode change`
+mainDiv.append(modeBtton)
+let intervalId2 
+let stopWatchTime = 0
+modeBtton.addEventListener('click',()=>{
+ 
+mainDiv.innerHTML = `
+<button class = "js-satrt">start</button>
+<button class = "js-stop">Stop</button>`
+let startStopWatch = document.querySelector('.js-satrt')
+let stopStopWatch = document.querySelector('.js-stop') 
+startStopWatch.addEventListener('click',()=>{
+  intervalId2 = setInterval(()=>{
+    let hrs = Math.floor(stopWatchTime / 3600);
+    let mins = Math.floor((stopWatchTime % 3600) / 60);
+    let secs = stopWatchTime % 60;
+    // let milisec = stopWatchTime * 1000
+ stopWatchTime++ 
+ h1.textContent = `${hrs}:${mins}:${secs}`
+ 
+  },1000)
+}) 
+stopStopWatch.addEventListener('click',()=>{
+  clearInterval(intervalId2)
+})
+})  
+
+
+
