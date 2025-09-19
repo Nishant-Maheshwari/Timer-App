@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toggle Sections</title>
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="toggleBtn">Toggle Sections</button>
+
+  <section id="section1">
+    <h2>Section 1</h2>
+    <p>This is the first section.</p>
+  </section>
+
+  <section id="section2" class="hidden">
+    <h2>Section 2</h2>
+    <p>This is the second section.</p>
+  </section>
+
+  <script>
+    const section1 = document.getElementById('section1');
+    const section2 = document.getElementById('section2');
+    const toggleBtn = document.getElementById('toggleBtn');
+
+    toggleBtn.addEventListener('click', () => {
+      section1.classList.toggle('hidden');
+      section2.classList.toggle('hidden');
+    });
+  </script>
+
+</body>
+</html>
