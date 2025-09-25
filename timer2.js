@@ -5,6 +5,7 @@ modeBtton.textContent = "Mode Change"
 document.body.append(modeBtton);
 document.body.append(timeDispay)
 let intervalId;
+let intervalId2;
 let isTimerRunning = true
 modeBtton.addEventListener('click',()=>{
  isTimerRunning = !isTimerRunning 
@@ -19,16 +20,26 @@ function render(){
   <input type="number" class="js-min" placeholder="Input in minutes">
   <input type="number" class="js-sec" placeholder="Input in seconds">
   <button class="start">Start Timer</button>
-  <button class="pause">pause</button>`
+  <button class="pause">pause</button>
+  <button class="reset">Reset</button>`
   let startBtn = document.querySelector('.start')
-  .addEventListener('click',runningTimer)
+  .addEventListener('click',runningTimer);
+  let pauseBtn = document.querySelector('.pause')
+  .addEventListener('click',pauseTimer);
+  let resetBtn = document.querySelector('.reset')
+  .addEventListener('click',reset)
   }else{
     mainDiv.innerHTML = `
-   <button>Start</button>
-   <button>stop</button> `
-  }
+   <button class= "start2">Start</button>
+   <button class = "stop2">stop</button> `
+   let startbtn2 = document.querySelector('.start2')
+   .addEventListener('click',stopWatch)
+    let stopbtn2 = document.querySelector('.stop2')
+    .addEventListener('click',stopwatchStop)
+  } 
 } 
-
+////formating time display//// 
+///Timer functions///
 function runningTimer(){
   let elapsed = 0;
   let inputHr = document.querySelector('.js-hr').value;
@@ -44,7 +55,42 @@ function runningTimer(){
   let secs = Math.floor((elapsed % 60000)/1000) || 0; 
   let ms = elapsed % 1000 || 0; 
 timeDispay.innerHTML = `${hrs}:${mins}:${secs}:${ms}`
-
+if(elapsed <= 0){
+  clearInterval(intervalId)
+  timeDispay.innerHTML = `Time's up`
+}
   },10)
 } 
+function pauseTimer(){
+  clearInterval(intervalId)
+  
+} 
+function reset(){
+  elapsed = 0;
+  clearInterval(intervalId)
+  timeDispay.innerHTML = `0:0:0:0`
+}
+
+////stopwatch//// 
+function stopWatch(){
+  let elapsed = 0
+  clearInterval(intervalId2)
+  intervalId2 = setInterval(()=>{
+    elapsed += 10;
+    let hrs = Math.floor(elapsed / 3600000) || 0;
+    let mins = Math.floor((elapsed % 3600000)/60000) || 0;
+    let sec = Math.floor((elapsed % 60000)/1000) || 0;
+    let ms = Math.floor((elapsed % 1000)/10) || 0; 
+
+     
+
+    timeDispay.innerHTML = `${hrs}:${mins}:${sec}:${ms}`
+  },10)
+} 
+function stopwatchStop(){
+  clearInterval(intervalId2) 
+
+} 
+
+
 render()
