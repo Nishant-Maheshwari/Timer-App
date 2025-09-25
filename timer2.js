@@ -4,6 +4,7 @@ let timeDispay = document.createElement('h1')
 modeBtton.textContent = "Mode Change"
 document.body.append(modeBtton);
 document.body.append(timeDispay)
+formatTime(0);
 let intervalId;
 let intervalId2;
 let isTimerRunning = true
@@ -39,6 +40,18 @@ function render(){
   } 
 } 
 ////formating time display//// 
+function formatTime(elapsed){
+  let hrs = Math.floor(elapsed / 3600000) || 0;
+  let mins = Math.floor((elapsed % 3600000) / 60000) || 0; 
+  let secs = Math.floor((elapsed % 60000)/1000) || 0; 
+  let ms = elapsed % 1000 || 0;   
+ hrs = String(hrs).padStart(2,"0");
+ mins = String(mins).padStart(2,"0");
+ secs = String(secs).padStart(2,"0");
+ ms = String(ms).padStart(3,"0");
+  timeDispay.innerHTML = `${hrs}:${mins}:${secs}:${ms}`
+  
+}
 ///Timer functions///
 function runningTimer(){
   let elapsed = 0;
@@ -50,11 +63,9 @@ function runningTimer(){
   
   intervalId = setInterval(()=>{
   elapsed -= 10
-  let hrs = Math.floor(elapsed / 3600000) || 0;
-  let mins = Math.floor((elapsed % 3600000) / 60000) || 0; 
-  let secs = Math.floor((elapsed % 60000)/1000) || 0; 
-  let ms = elapsed % 1000 || 0; 
-timeDispay.innerHTML = `${hrs}:${mins}:${secs}:${ms}`
+  formatTime(elapsed)
+  
+
 if(elapsed <= 0){
   clearInterval(intervalId)
   timeDispay.innerHTML = `Time's up`
@@ -77,14 +88,11 @@ function stopWatch(){
   clearInterval(intervalId2)
   intervalId2 = setInterval(()=>{
     elapsed += 10;
-    let hrs = Math.floor(elapsed / 3600000) || 0;
-    let mins = Math.floor((elapsed % 3600000)/60000) || 0;
-    let sec = Math.floor((elapsed % 60000)/1000) || 0;
-    let ms = Math.floor((elapsed % 1000)/10) || 0; 
+    formatTime(elapsed)
 
      
 
-    timeDispay.innerHTML = `${hrs}:${mins}:${sec}:${ms}`
+    // timeDispay.innerHTML = `${hrs}:${mins}:${sec}:${ms}`
   },10)
 } 
 function stopwatchStop(){
