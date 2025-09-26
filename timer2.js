@@ -1,9 +1,11 @@
 let modeBtton = document.createElement('button')
 let mainDiv = document.querySelector('.js-mode')
 let timeDispay = document.createElement('h1')
+let flagDiv = document.createElement('div')
 modeBtton.textContent = "Mode Change"
 document.body.append(modeBtton);
 document.body.append(timeDispay)
+document.body.append(flagDiv)
 formatTime(0);
 let intervalId;
 let intervalId2;
@@ -32,11 +34,14 @@ function render(){
   }else{
     mainDiv.innerHTML = `
    <button class= "start2">Start</button>
-   <button class = "stop2">stop</button> `
-   let startbtn2 = document.querySelector('.start2')
+   <button class = "stop2">stop</button>
+   <button class = "lap">laps</button> `
+    let startbtn2 = document.querySelector('.start2')
    .addEventListener('click',stopWatch)
     let stopbtn2 = document.querySelector('.stop2')
     .addEventListener('click',stopwatchStop)
+    
+    
   } 
 } 
 ////formating time display//// 
@@ -50,7 +55,7 @@ function formatTime(elapsed){
  secs = String(secs).padStart(2,"0");
  ms = String(ms).padStart(3,"0");
   timeDispay.innerHTML = `${hrs}:${mins}:${secs}:${ms}`
-  
+  return {hrs,mins,secs,ms}
 }
 ///Timer functions///
 function runningTimer(){
@@ -84,12 +89,21 @@ function reset(){
 
 ////stopwatch//// 
 function stopWatch(){
-  let elapsed = 0
+  let elapsed = 0 
+  let labtn = document.querySelector('.lap')
+
+   function flag(){
+let {hrs,mins,secs,ms} = formatTime(elapsed) 
+flagDiv.innerHTML += `<h3>${hrs}:${mins}:${secs}:${ms}</h3>`
+}
+labtn.addEventListener('click',flag)
+
   clearInterval(intervalId2)
   intervalId2 = setInterval(()=>{
     elapsed += 10;
     formatTime(elapsed)
 
+ 
      
 
     // timeDispay.innerHTML = `${hrs}:${mins}:${sec}:${ms}`
