@@ -89,6 +89,7 @@ function runningTimer(){
     elapsed = 0;
     clearInterval(intervalId);
     timeDisplay.innerHTML = formateTime(elapsed)
+    
   } 
   document.querySelector('.reset')
   .addEventListener('click',reset)
@@ -134,8 +135,13 @@ addEventListener('click',reset)
 ////flag fucntion///
  function flag(){
   laps.push(formateTime(elapsed))
-  flagDisplay.innerHTML = laps
-  
+  // let displaystr = "";
+  // laps.map((lap,i)=>{
+  //   displaystr += `laps ${i+1}: ${lap} <br>`
+  // })
+  flagDisplay.innerHTML = laps.map((lap,i)=>{
+    return `laps ${i+1}: ${lap}`
+  }).join("<br>")
  } 
  document.querySelector('.lap')
  .addEventListener('click',flag)
